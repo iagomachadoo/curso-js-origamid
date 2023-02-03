@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch 3</title>
+    <style>
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: max-content;
+            margin: 100px auto 0 auto;
+        }
+
+        input{
+            margin-bottom: 12px;
+            font-size: 16px;
+            padding: 2px 4px;
+        }
+
+        button{
+            font-size: 16px;
+            padding: 4px 8px;
+        }
+
+        #btcReal{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #chucknorris{
+            max-width: 300px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chucknorris h2,
+        #chucknorris p{
+            margin-top: 0;
+        }
+
+        #chucknorris button{
+            max-width: max-content;
+            align-self: center;
+        }
+    </style>
+</head>
+<body>
+    <form id="busca-cep">
+        <label for="cep">Digite seu CEP</label>
+        <input type="text" placeholder="12345678" maxlength="8" id="cep" name="cep">
+        <input type="button" value="Buscar cep" id="btnCep"></input>
+        <ul></ul>
+    </form>
+
+    <div id="btcReal">
+        <h2>Valor do Bitcoin em Reais</h2>
+        <div>
+            <input type="number" name="btc" id="btc">
+            <span>=</span>
+            <input type="text" name="real" id="real">
+        </div>
+    </div>
+
+    <div id="chucknorris">
+        <h2>Piadas do Chucknorris</h2>
+        <p>Clique no botão para ver uma piada do Chucknorris</p>
+        <button>próxima</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
