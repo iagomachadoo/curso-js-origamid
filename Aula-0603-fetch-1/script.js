@@ -22,7 +22,7 @@ doc2.then(resolucao => {
 
 //Trabalhando com JSON
 
-const api = fetch('https://viacep.com.br/ws/08011220/json/');
+/* const api = fetch('https://viacep.com.br/ws/08011220/json/');
 let divConteudo = document.querySelector('.conteudo');
 
 api.then((resposta) => {
@@ -59,10 +59,10 @@ style.then((resolucao) => {
     div.appendChild(novoElement);
 
     console.log(resolucao)
-})
+}) */
 
 
-const paginaSobre = fetch('./sobre.html');
+/* const paginaSobre = fetch('./sobre.html');
 const div = document.createElement('div');
 const conteudo = document.querySelector('.conteudo');
 
@@ -73,4 +73,4 @@ paginaSobre.then((r) => {
     const titulo = div.querySelector('h1');
     conteudo.appendChild(titulo);
     console.log(div)
-})
+}) */
