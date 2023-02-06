@@ -9,7 +9,13 @@
   </head>
   <body>
     <div class="container">
-        <div class="mt-5 conteudo"></div>
+      <form class="my-3">
+        <label for="nome-drink" class="form-label">Digite o nome de um drink</label>
+        <input type="text" class="form-control mb-3" name="nome-drink" id="nome-drink" placeholder="Ex: caipirinha" required>
+        <p class="form-text alerta">*Insira um valor válido</p>
+        <input name="pesquisar" id="pesquisar" class="btn btn-primary" type="button" value="Pesquisar">
+      </form>
+      <div class="mt-5 conteudo"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
