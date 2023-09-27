@@ -64,3 +64,28 @@
     - O nome de uma variável não pode ser uma palavra reservada e nem começar com um número, mas pode começar com $, _, ou letras
 
     - O JavaScript é **case sensitive**, ou seja, há à diferença entre letras maiusculas e minusculas. Dessa forma as variáveis nome e Nome são diferentes
+
+### Tipos de dados
+- Existem 7 tipos principais de dados
+    - String
+    
+    - Number
+
+    - Boolean
+
+    - Undefined
+
+    - Null
+
+    - Symbol
+
+    - Object
+
+    - Todos esses tipos de dados são primitivos, exceto o Object
+
+    - Dados primitivos são imutáveis, o que significa que, uma vez criados, eles não podem ser modificados. Qualquer operação em um valor primitivo, como uma operação matemática em um número ou uma concatenação em uma string, resultará em um novo valor, em vez de modificar o valor original
+        -   ```
+                let x = 5;
+                let y = x + 3; // y será 8, x continua sendo 5
+
+            ``` 
