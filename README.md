@@ -440,3 +440,241 @@
                     }, 'Olá, mundo!');
                 ```
 
+
+### Constructor Functions
+- Uma constructor function em JavaScript é uma função que é usada para criar e inicializar objetos. Ela é chamada de "constructor" porque é usada para construir objetos de um tipo específico, seguindo um padrão comum. Para criar objetos usando uma constructor function, você utiliza a palavra-chave new.
+
+- No entanto, com a introdução das classes em ES6, muitos desenvolvedores agora preferem usar classes para criar objetos em vez de constructor functions, pois as classes oferecem uma sintaxe mais clara e orientada a objetos. Mesmo assim, as constructor functions ainda são usadas e são uma parte importante da herança e da criação de objetos em JavaScript.
+
+- O padrão de nomenclatura das funções construtoras é o pascal case, ou seja, a primeira letra em maiúsculo
+
+- Sintaxe 
+    -   ```
+            function NomeFuncao(){
+                this.prop = value;
+                this.prop = value;
+                this.prop = value;
+            }
+
+            const novaFuncao = new NomeFuncao();
+            nomeFuncao.prop = value;
+            nomeFuncao.prop = value;
+        ```
+
+- Exemplo
+    -   ```
+            function Carro() {
+                this.marca = 'Marca';
+                this.preco = 0;
+            }
+
+            const honda = new Carro();
+            honda.marca = 'Honda';
+            honda.preco = 1000;
+
+            const fiat = new Carro();
+            fiat.marca = 'Fiat';
+            fiat.preco = 2000;
+        ```
+
+- A palavra chave **new** é responsável por criar um novo objeto baseado na função que passarmos a frente dela
+    - Funcionamento da palavra chave **new**
+        -   ```
+                const honda = new Carro();
+
+                // 1 Cria um novo objeto
+                honda = {};
+
+                // 2 Define o protótipo
+                honda.prototype = Carro.prototype;
+
+                // 3 Aponta a variável this para o objeto
+                this = honda;
+
+                // 4 Executa a função, substituindo this pelo objeto
+                honda.marca = 'Marca';
+                honda.preco = 0;
+
+                // 5 Retorna o novo objeto
+                return honda = {
+                marca: 'Marca',
+                preco: 0,
+                }
+
+            ```
+
+- Uma forma mais eficiente de criar novo objetos a partir de uma constructor function, é passando parâmetros pra ela, e no momento da criação das nova instancias, preencher os argumentos com os valores desejados
+    -   ```
+            function Pessoa(parametroNome, parametroIdade, parametroCidade){
+                this.nome = parametroNome;
+                this.idade = parametroIdade;
+                this.cidade = parametroCidade;
+            }
+
+            const pessoa1 = new Pessoa('Iago', 26, 'Itaocara');
+            const pessoa2 = new Pessoa("Diani", 43, 'Aperibé');
+        ```
+
+- A palavra chave **this** faz referência ao próprio objeto construído com a Constructor Function.
+    - Contudo, podemos criar variáveis dentro do constructor, sendo que essas variáveis não são visíveis para as novas instâncias desse objeto
+
+    -   ```
+            //tx e desconto não são visíveis nas novas instâncias do objeto Produto()
+            function Produto(marca, nome, preco){
+                const tx = 0.2;
+                const desconto = preco - (preco * tx);
+                this.marca = marca;
+                this.nome = nome;
+                this.preco = desconto;
+            }
+
+            const sabonete = new Produto('Dove', 'Dove jasmim', 4.5);
+            const biscoito = new Produto("Piraque", "Piraque chocolate", 3.99);
+        ```
+
+- A propriedade **prototype** é um objeto adicionado a uma **função** quando a mesma é criada
+    - A propriedade **`prototype`** em JavaScript é usada para estabelecer herança de propriedades e métodos entre objetos, criar cadeias de protótipos e acessar o construtor original de um objeto. Ela é fundamental para a programação orientada a objetos em JavaScript, permitindo que objetos compartilhem propriedades e métodos com outros objetos, economizando memória e criando estruturas de herança complexas.
+ 
+    - A vantagem de usar o **prototype** é que os métodos e propriedades criados a partir dele, são únicos, ou seja, são criados apenas uma vez e não toda vez que o construtor for instanciado
+
+    - Primeiro, o método ou propriedade é procurada dentro do construtor, senão existir, a procura passa pro prototype. Essa ordem é importante, caso exista o mesmo método/propriedade no construtor e no protótipo, a que será executado é o do construtor
+
+- Construtores nativos
+    - Objetos, Funções, Números, Strings e outros tipos de dados são criados utilizando construtores. Esses construtores possuem um protótipo com propriedades e métodos, que poderão ser acessadas pelo tipo de dado
+
+- Método do objeto vs Protótipo
+    - Nos objetos nativos existem métodos linkados diretamente ao Objeto e outros linkados ao protótipo
+
+    -   ```
+            Array.prototype.slice.call(lista);
+            Array.from(lista); // .from é linkado ao objeto e não ao protótipo
+        ```
+
+    - O método getOwnPropertyNames() é usado para retornar um array com os nomes de todas as **propriedades próprias (não herdadas)** de um objeto. Isso inclui propriedades enumeráveis e não enumeráveis.  
+
+### Diferentes tipos de objetos existentes no JavaScript
+- Native
+    - Objetos nativos são aqueles definidos na especificação da linguagem e são implementados independente do host, ou seja, se eu abrir qualquer browser, esses objetos estarão lá, porque são da implementação da linguagem
+        - Alguns exemplos
+            - Object
+
+            - String
+
+            - Array
+
+            - Function
+
+    - Então, se eu abri o node no terminal, escrever **Object** e der enter, o retorno será o objeto nativo `Function: Object`. Contudo, se eu escrever, pode exemplo, **NodeList** e der enter, o retorno será um erro de referencia `Uncaught ReferenceError: NodeList is not defined` porque o objeto NodeList não é nativo da linguagem, ele é nativo do host(browser)
+
+- Host
+    - Objetos do host são aqueles implementados pelo próprio ambiente. Por exemplo, no browser possuímos objetos do DOM, como DomList, HTMLCollection e outros. Em Node.js os objetos do Host são diferentes, já que não estamos em um ambiente do browser
+
+    - Alguns exemplos
+        - NodeList
+
+        - HTMLCollection
+
+        - Element
+
+- User
+    - Objetos o user, são objetos definidos pelo seu aplicativo. Ou seja, qualquer objeto que você criar ou que importar de alguma biblioteca externa
+
+- Podemos verificar se um método ou objeto existe no JavaScript usando o **typeof** da seguinte maneira
+    -   ```
+            if(typeof Array.from !== "undefined")
+            if(typeof NodeList !== "undefined")
+        ```
+
+    - Caso o método ou objeto não exista, cabe ao ao programador achar uma maneira de implementar o comportamento com outro código. Esse implementação de um comportamento que não existe em um ambiente, ou em versões de browser mais antigas é chamado de **polyfill**
+        - Um "polyfill" é um trecho de código em JavaScript usado para adicionar funcionalidades a navegadores que não oferecem suporte nativo a essas funcionalidades, permitindo que os desenvolvedores garantam uma experiência consistente em diferentes navegadores. Polyfills preenchem lacunas de funcionalidade em navegadores mais antigos, estendendo o suporte a recursos como HTML5 e são úteis para criar sites que funcionem em diversos ambientes de navegador. Eles são frequentemente usados em conjunto com ferramentas modernas de desenvolvimento web.
+
+### Array e interação
+- forEach()
+    - Sintaxe
+        - `array.forEach(callback(itemAtual, index, array))`
+
+        - A função de callback é executada para cada item da array
+
+        - Ela possui 3 argumentos 
+            - Item atual - valor do item da array
+
+            - Index - index do valor na array
+
+            - Array - array original (modificando qualquer item dentro desse parâmetro, a array original será modificada, porque esse argumento faz referência a array original)
+
+        - Podemos usar **arrow function** para criar o callback do função forEach
+            - Sintaxe
+                - `forEach(()=>{})`
+
+            - Quando passamos apenas um argumento, não precisamos dos parênteses. E se retornamos apenas uma linha, não precisamos das chaves 
+                - `forEach(i => i.classList.add('ativa))`
+
+- map()
+    - Sintaxe 
+        - `array.map(callback(itemAtual, index, array))`
+
+        - Funciona da mesma forma que o forEach(), porém, ao invés de retornar undefined (o foreach sempre retorna undefined, então, se colocarmos o resultado do foreach dentro de uma variável, seu retorno será undefined), retorna uma nova array com valores atualizados de acordo com o return de cada iteração
+
+        - Mas se não retornarmos nenhum valor durante a iteração utilizando map, o valor retornado como de qualquer função que não possui o return, será undefined
+
+- Quando usar forEach() ou map()
+    - Se o objetivo for modificar os valores do array atual, sempre utilize o map, pois assim uma nova array com os valores modificados é retornada e você pode imediatamente iterar novamente sobre estes valores
+
+- reduce()
+    - Sintaxe
+        - `[].reduce(callback(acumulador, valorAtual, index, array), valorInicial)`
+
+    - Executa uma função de callback para cada item da array. Um valor especial existe nessa função de callback, ele é chamado de **acumulador**, mas é na verdade apenas o retorno da iteração anterior
+
+    - Diferente do map() que retorna uma nova array, e o forEach() que retorna undefined, o reduce() um único valor, o valor da última iteração
+
+    - Se omitirmos o **valorInicial**, o acumulador pula a primeira iteração e recebe o seu valor, ou seja, se tivermos um array com 3 itens, só haverá duas iterações
+
+    - Passo a passo do reduce()
+        - REDUCE PASSO A PASSO 1 - O primeiro parâmetro do callback é o valor do segundo argumento passado no reduce(callback, inicial) durante a primeira iteração. Nas iterações seguintes este valor passa a ser o retornado pela anterior.
+            -   ```
+                    const aulas = [10, 25, 30];
+
+                    // 1
+                    aulas.reduce((0, 10) => {
+                        return 0 + 10;
+                    }, 0); // retorna 10
+
+                    // 2
+                    aulas.reduce((10, 25) => {
+                        return 10 + 25;
+                    }, 0); // retorna 35
+
+                    // 3
+                    aulas.reduce((35, 30) => {
+                        return 35 + 30;
+                    }, 0); // retorna 65
+                ```
+
+        - REDUCE PASSO A PASSO 2 - Se não definirmos o valor inicial do acumulador, ele irá pular a primeira iteração e começara a partir da segunda. Neste caso o valor do acumulador será o valor do item da primeira iteração.
+            -   ```
+                    const aulas = [10, 25, 30];
+
+                    // 1
+                    aulas.reduce((10, 25) => {
+                        return 10 + 25;
+                    }) // retorna 35
+
+                    // 2
+                    aulas.reduce((35, 30) => {
+                        return 35 + 30;
+                    }) // retorna 65
+
+                ```
+
+- some()
+    - Se pelo menos um return da iteração for truthy, ele retorna true. Ou seja, procura por pelo menos um verdadeiro
+
+    - Sintaxe 
+        - `[].some(item)`
+
+- every()
+    - Se todos os returns das iterações forem truthy, o método irá retornar true. Se pelo menos um for falsy, ele irá retornar false. Ou seja, procura pelo primeiro false
+
+    - Sintaxe
+        - `[].every(item)`
