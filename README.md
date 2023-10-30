@@ -317,6 +317,18 @@
 
 - Quando usamos o **return** a execução da função e paralisada no momento em que o return é executado. Ou seja, é uma forma de parar a execução da função 
 
+- Propriedades
+    - O prototipo das funções é acessado atraves da função e não da sua execução, ou seja, `soma.length` é diferente de `soma().length`. Quando se trata de acessar as propriedades e métodos da função, a forma correta é `soma.length`
+
+    - **`Function.length`** retorna o total de argumentos da função. 
+    
+    - **`Function.name`** retorna uma string com o nome da função.
+
+    - **`function.call(this, arg1, arg2, ...)`** executa a função, sendo possível passarmos uma nova referência ao this da mesma.
+        - O valor de **this** faz referência ao objeto criado durante a construção do objeto (Constructor Function). Podemos trocar a referência do método ao this, utilizando o call().
+
+        - O novo valor de this deve ser semelhante a estrutura do valor do this original do método. Caso contrário o método não conseguirá interagir de forma correta com o novo this.
+
 ### Escopo
 - No JavaScript, existem dois principais tipos de escopo: o **escopo global** e o **escopo local** (também conhecido como escopo de função ou bloco). Esses escopos determinam onde as variáveis e funções são acessíveis dentro do código.
     - **Escopo Global**: As variáveis declaradas fora de qualquer função ou bloco de código têm escopo global. Isso significa que elas podem ser acessadas de qualquer lugar no código, tanto dentro de funções quanto no escopo global. Variáveis globais são acessíveis por todo o código, o que pode levar a problemas de encapsulamento e colisões de nomes.
@@ -379,6 +391,86 @@
 
 - **Tudo em JavaScript é um objeto**. Strings, Números, Boolean, Objetos e mais, possuem propriedades e métodos. Por isso são objetos
 
+- Métodos do construtor Object
+    - `Object.create(obj, defineProperties)`
+        - Retorna um novo objeto que terá como protótipo o objeto do primeiro argumento.
+
+        - Ou seja, a partir de um objeto que foi criado, podemos criar um novo objeto que vai utilizar as mesmas propriedade e métodos que o objeto "pai" já tem. É semelhante a quando usamos uma função construtora
+
+        - Sintaxe
+            - `Object.create(obj, defineProperties)`
+
+    - `Object.assign(alvo, obj1, obj2)`
+        - Adiciona ao alvo as propriedades e métodos enumeráveis dos demais objetos. O assign irá modificar o objeto alvo.
+
+    - `Object.defineProperties(alvo, propriedades)`
+        - Adiciona ao alvo novas propriedades. A diferença aqui é a possibilidade de serem definidas as características dessas propriedades.
+
+    - `get() & set()`
+        - É possível definirmos diferentes comportamentos para **get** e **set** de uma propriedade. Lembrando que ao **acionarmos uma propriedade** obj.propriedade, a função get é ativada e ao **setarmos** ob.propriedade = 'Valor' a função de set é ativada.
+
+    - `Object.getOwnPropertyDescriptors(obj)`
+        - Lista todos os métodos e propriedades de um objeto, com as suas devidas configurações.
+
+    - `Object.keys(obj)`
+        - Retorna uma array com as chaves de todas as propriedades diretas e **enumeráveis** do objeto.
+
+    - `Object.values(obj)` 
+        - Retorna uma array com os valores do objeto.
+
+    - `Object.entries(obj)`
+        - Retorna uma array com array's contendo a chave e o valor.
+
+    - `Object.getOwnPropertyNames(obj)`
+        - Retorna uma array com todas as propriedades diretas do objeto enumeráveis ou não (não retorna as do protótipo).
+
+    - `Object.getPrototypeOf(obj)`
+        - Retorna o protótipo do objeto
+
+        - É igual a Obj.prototype
+
+    - `Object.is(obj1, obj2)`
+        - Verifica se os objetos são iguais e retorna true ou false.
+
+    - `Object.freeze()` 
+        - Impede qualquer mudança nas propriedades.
+
+        - O método `Object.freeze()` congela um objeto: isto é, impede que novas propriedades sejam adicionadas a ele; impede que as propriedades existentes sejam removidas; e impede que propriedades existentes, ou sua inumerabilidade, configurabilidade, ou capacidade de escrita sejam alteradas. Em essência o objeto é efetivamente imutável. O método retorna o objeto congelado.
+
+    - `Object.seal()` 
+        - Previne a adição de novas propriedades e impede que as atuais sejam deletadas.
+
+        - O método `Object.seal()` sela um Objeto, evitando que novas propriedades sejam adicionadas à ele e marcando todas as propriedades existentes como não configuráveis. Valores das propriedades atuais ainda podem ser alterados desde que essas propriedades sejam graváveis (writable).
+
+    - `Object.preventExtensions()` 
+        - Previne a adição de novas propriedades.
+
+        - O método `Object.preventExtensions()` impede que novas propriedades sejam adicionadas a um objeto (isto é, impede futuras extensões ao objeto).
+
+- Propriedades e métodos do protótipo
+    - `{}.constructor` 
+        - Retorna a função construtora do objeto.
+
+    - `{}.hasOwnProperty(prop)`
+        - Verifica se possui a propriedade e retorna true. A propriedade deve ser direta do objeto e não do protótipo
+
+        - O método `hasOwnProperty()` retorna um booleano indicando se o objeto possui a propriedade especificada como uma propriedade definida no próprio objeto em questão (ao contrário de uma propriedade herdada).
+
+    - `{}.propertyIsEnumerable()`
+        - Verifica se a propriedade é enumerável.
+
+        - O método `propertyIsEnumerable()` retorna um booleano indicando quando a propriedade especificada é enumerável e é a propriedade do próprio objeto
+
+    - `{}.isPrototypeOf(value)`
+        - Verifica se é o protótipo do valor passado.
+
+        - O `isPrototypeOf()` método de Object instâncias verifica se este objeto existe na cadeia de protótipos de outro objeto.
+
+    - `{}.toString()`
+        - Retorna o tipo do objeto. 
+        
+        - O problema é `toString()` ser uma função dos protótipos de Array, String e mais. Por isso é comum utilizarmos a função direto do `Object.prototype.toString.call(valor)`.
+
 ### Arrays e Loops
 - Um **array** é um grupo de valores geralmente relacionados. Servem para guardarmos diferentes valores em uma única variável
     -   ```
@@ -394,6 +486,33 @@
         - `array.push() // adiciona um item ao final do array`
 
         - `array.length // retorna o tamanho do array`  
+
+    - Método call()
+        - É comum utilizarmos o **call()** nas funções do protótipo do construtor Array. Assim podemos estender todos os métodos de Array à **objetos que se parecem com uma Array (array-like)**.
+
+        - HTMLCollection, NodeList e demais objetos do Dom, são parecidos com uma array. Por isso conseguimos utilizar os mesmos na substituição do this em call.
+
+        - Array Like
+            - Um array like é um objeto que se parece com uma array
+
+            - Sintaxe
+                -   ```
+                        const arrayLike = {
+                            0: 'item 1',
+                            1: 'item 2',
+                            2: 'item 3',
+                            length: 3,
+                        }
+                    ```
+    - Método apply()
+        - O **`apply(this, [arg1, arg2, ...])`** funciona como o call, a única diferença é que os argumentos da função são passados através de uma array.
+
+    - Método bind()
+        - Diferente de call e apply, **`bind(this, arg1, arg2, ...)`** não irá executar a função mas sim retornar a mesma com o novo contexto de this. Logo, a função deve ser executada manualmente
+
+        - Não precisamos passar todos os argumentos no momento do bind, podemos passar os mesmos na nova função no momento da execução da mesma.
+
+        - Com o método bind() podemos passar argumentos padrões para uma função e retornar uma nova função.
 
 - Um **loop** serve para fazer algo repetidamente até que uma condição seja atingida
     - Temos alguns tipos de loops, como o for, while e foreach. Todos fazem a mesma coisa, mas podem se sair melhor em contextos diferentes. Como por exemplo, o foreach que é mais usado para iterações com array
@@ -678,3 +797,13 @@
 
     - Sintaxe
         - `[].every(item)`
+
+- find() e findIndex()
+    - **`[].find()`**, retorna o valor atual da primeira iteração que retornar um valor truthy. 
+    
+    - Já o **`[].findIndex()`**, ao invés de retornar o valor, retorna o index deste valor na array.
+
+    - Essas funções, quando tem a condição satisfeita, paralisam a execução do código e já retornam o valor que satisfaz a condição
+
+- filter()
+    - **`[].filter()`**, retorna uma array com a lista de valores que durante a sua iteração retornaram um valor truthy.
